@@ -10,14 +10,29 @@
     <h1>Image Manipulation Tool</h1>
     
     <input type="file" id="upload" onchange="loadImage(event)">
+    
+    <div id="controls">
+        <label for="saturation">Saturation:</label>
+        <input type="range" id="saturation" min="0" max="200" value="100" onchange="adjustImage()">
+        
+        <label for="brightness">Brightness:</label>
+        <input type="range" id="brightness" min="0" max="200" value="100" onchange="adjustImage()">
+    </div>
+
     <div id="previews">
         <canvas id="mainCanvas"></canvas>
         <canvas id="previewCanvas" width="300" height="300"></canvas>
     </div>
 
-    <button onclick="flipImage()">Flip Image</button>
-    <button onclick="rotateImage()">Rotate 90°</button>
+    <div id="buttons">
+        <button onclick="flipImage()">Flip Image</button>
+        <button onclick="rotateImage()">Rotate 90°</button>
+        <button onclick="resetImage()">Reset Image</button>
+        <button onclick="downloadImage('mainCanvas')">Download Original</button>
+        <button onclick="downloadImage('previewCanvas')">Download 300x300</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
-</html>
+                                </html>
+                                
