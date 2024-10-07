@@ -1,56 +1,83 @@
-const patternAssets = {
-    flower: 'img/flowers.png',
-    bird: 'img/birds.png',
-    cat: 'img/cats.png',
-    dog: 'img/dogs.png',
-    stripe: 'img/stripes.png',
-    plaid: 'img/plaid.png',
-    dot: 'img/dots.png',
-    randomShape: 'img/randomShapes.png'
-};
+let originalImage = null;
+let rotation = 0;
+let flip = false;
 
-document.getElementById("generatePattern").addEventListener("click", function() {
-    const patternType = document.getElementById("patternType").value;
-    const canvas = document.getElementById("patternCanvas");
+function loadImage(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        originalImage = new Image();
+        originalImage.src = reader.result;
+        originalImage.onload = function() {
+            updateImage();
+        };
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+function updateImage() {
+    if (!originalImage) return;
+
+    const saturation = document.getElementById("saturation").value;
+    const brightness = document.getElementById("brightness").value;
+
+    const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    // Limpar canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const width = originalImage.width;
+    const height = originalImage.height;
+    
+    canvas.width = width;
+    canvas.height = height;
+    
+    ctx.filter = `saturate(${saturation}%) brightness(${brightness}%)`;
+    ctx.save();
+    applyTransformations(ctx, width, height);
+    ctx.drawImage(originalImage, 0, 0, width, height);
+    ctx.restore();
 
-    // Gerar padrão com base na escolha
-    if (patternAssets[patternType]) {
-        generatePattern(ctx, patternAssets[patternType]);
+    const image = document.getElementById("image");
+    const thumbnail = document.getElementById("thumbnail");
+
+    image.src = canvas.toDataURL();
+    updateThumbnail(canvas);
+}
+
+function rotateImage(degrees) {
+    rotation = (rotation + degrees) % 360;
+    updateImage();
+}
+
+function flipImage() {
+    flip = !flip;
+    updateImage();
+}
+
+function applyTransformations(ctx, width, height) {
+    if (rotation !== 0) {
+        ctx.translate(width / 2, height / 2);
+        ctx.rotate(rotation * Math.PI / 180);
+        ctx.translate(-width / 2, -height / 2);
     }
-});
-
-// Função para gerar padrões a partir de imagens
-function generatePattern(ctx, imageSrc) {
-    const img = new Image();
-    img.src = imageSrc;
-    img.onload = function() {
-        const pattern = ctx.createPattern(img, 'repeat');
-        ctx.fillStyle = pattern;
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    if (flip) {
+        ctx.translate(width, 0);
+        ctx.scale(-1, 1);
     }
 }
 
-// Função para salvar a estampa como arquivo
-document.getElementById("savePattern").addEventListener("click", function() {
-    const canvas = document.getElementById("patternCanvas");
-    const link = document.createElement("a");
-    link.download = 'pattern.png';
-    link.href = canvas.toDataURL();
-    link.click();
-});
+function updateThumbnail(canvas) {
+    const thumbnail = document.getElementById("thumbnail");
+    const thumbnailCanvas = document.createElement("canvas");
+    const ctx = thumbnailCanvas.getContext("2d");
 
-// Função para trocar a estampa na galeria
-document.getElementById("changePattern").addEventListener("click", function() {
-    const canvas = document.getElementById("patternCanvas");
-    const gallery = document.getElementById("gallery");
-    const newCanvas = document.createElement('canvas');
-    newCanvas.width = 200;
-    newCanvas.height = 200;
-    const newCtx = newCanvas.getContext('2d');
-    newCtx.drawImage(canvas, 0, 0, 200, 200);
-    gallery.appendChild(newCanvas);
-});
+    thumbnailCanvas.width = 300;
+    thumbnailCanvas.height = 300;
+
+    const scale = Math.min(300 / canvas.width, 300 / canvas.height);
+    const width = canvas.width * scale;
+    const height = canvas.height * scale;
+    const offsetX = (300 - width) / 2;
+    const offsetY = (300 - height) / 2;
+
+    ctx.drawImage(canvas, offsetX, offsetY, width, height);
+    thumbnail.src = thumbnailCanvas.toDataURL();
+}
