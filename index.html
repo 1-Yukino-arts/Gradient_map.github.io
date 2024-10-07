@@ -1,37 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de Imagens</title>
+    <title>Image Manipulation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Editor de Imagens</h1>
+    <h1>Image Manipulation Tool</h1>
     
-    <div class="controls">
-        <input type="file" id="upload" accept="image/*" onchange="loadImage(event)" />
-        <label for="saturation">Saturação:</label>
-        <input type="range" id="saturation" min="0" max="200" value="100" oninput="updateImage()" />
-        
-        <label for="brightness">Luminosidade:</label>
-        <input type="range" id="brightness" min="0" max="200" value="100" oninput="updateImage()" />
-        
-        <button onclick="rotateImage(90)">Girar 90°</button>
-        <button onclick="flipImage()">Inverter</button>
+    <input type="file" id="upload" onchange="loadImage(event)">
+    <div id="previews">
+        <canvas id="mainCanvas"></canvas>
+        <canvas id="previewCanvas" width="300" height="300"></canvas>
     </div>
-    
-    <div class="preview">
-        <h2>Pré-visualização</h2>
-        <div class="image-container">
-            <img id="image" src="" alt="Imagem carregada" />
-        </div>
-        <div class="thumbnail-container">
-            <h3>Prévia 300x300</h3>
-            <img id="thumbnail" src="" alt="Miniatura da imagem" />
-        </div>
-    </div>
-    
+
+    <button onclick="flipImage()">Flip Image</button>
+    <button onclick="rotateImage()">Rotate 90°</button>
+
     <script src="script.js"></script>
 </body>
 </html>
