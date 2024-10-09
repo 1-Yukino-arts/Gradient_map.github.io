@@ -1,38 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Manipulation</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Gerador de Estampas</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Image Manipulation Tool</h1>
-    
-    <input type="file" id="upload" onchange="loadImage(event)">
-    
-    <div id="controls">
-        <label for="saturation">Saturation:</label>
-        <input type="range" id="saturation" min="0" max="200" value="100" onchange="adjustImage()">
-        
-        <label for="brightness">Brightness:</label>
-        <input type="range" id="brightness" min="0" max="200" value="100" onchange="adjustImage()">
+    <div class="container">
+        <h1>Gerador de Estampas</h1>
+
+        <!-- Seção para escolher tipo de estampa -->
+        <div class="pattern-selection">
+            <label for="patternType">Escolha o Padrão:</label>
+            <select id="patternType">
+                <option value="flower">Flores</option>
+                <option value="bird">Pássaros</option>
+                <option value="cat">Gatos</option>
+                <option value="dog">Cachorros</option>
+                <option value="stripe">Listras</option>
+                <option value="plaid">Xadrez</option>
+                <option value="dot">Bolinhas</option>
+                <option value="randomShape">Formas Aleatórias</option>
+            </select>
+        </div>
+
+        <!-- Botão para gerar estampa -->
+        <div class="button-section">
+            <button id="generatePattern">Gerar Estampa</button>
+        </div>
+
+        <!-- Seção de visualização da estampa -->
+        <div class="pattern-display">
+            <h3>Visualização da Estampa</h3>
+            <canvas id="patternCanvas" width="500" height="500"></canvas>
+        </div>
+
+        <!-- Botões para trocar e salvar a estampa -->
+        <div class="button-section">
+            <button id="changePattern">Trocar Estampa</button>
+            <button id="savePattern">Salvar Estampa</button>
+        </div>
+
+        <!-- Galeria para visualização múltipla de estampas -->
+        <div id="patternGallery">
+            <h3>Galeria de Estampas</h3>
+            <div id="gallery"></div>
+        </div>
     </div>
 
-    <div id="previews">
-        <canvas id="mainCanvas"></canvas>
-        <canvas id="previewCanvas" width="300" height="300"></canvas>
-    </div>
-
-    <div id="buttons">
-        <button onclick="flipImage()">Flip Image</button>
-        <button onclick="rotateImage()">Rotate 90°</button>
-        <button onclick="resetImage()">Reset Image</button>
-        <button onclick="downloadImage('mainCanvas')">Download Original</button>
-        <button onclick="downloadImage('previewCanvas')">Download 300x300</button>
-    </div>
-
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
-                                </html>
-                                
+</html>
