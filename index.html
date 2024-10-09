@@ -1,54 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Estampas</title>
+    <title>Random Gradient Modifier with Thumbnail</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Gerador de Estampas</h1>
 
-        <!-- Seção para escolher tipo de estampa -->
-        <div class="pattern-selection">
-            <label for="patternType">Escolha o Padrão:</label>
-            <select id="patternType">
-                <option value="flower">Flores</option>
-                <option value="bird">Pássaros</option>
-                <option value="cat">Gatos</option>
-                <option value="dog">Cachorros</option>
-                <option value="stripe">Listras</option>
-                <option value="plaid">Xadrez</option>
-                <option value="dot">Bolinhas</option>
-                <option value="randomShape">Formas Aleatórias</option>
-            </select>
-        </div>
+    <!-- Input para carregar a imagem do dispositivo -->
+    <input type="file" id="imageInput" accept="image/*" />
+    
+    <!-- Imagem do gradiente carregada pelo usuário -->
+    <img id="gradientImage" src="#" alt="Gradient" style="display:none;"/>
 
-        <!-- Botão para gerar estampa -->
-        <div class="button-section">
-            <button id="generatePattern">Gerar Estampa</button>
-        </div>
+    <!-- Miniatura da imagem -->
+    <canvas id="thumbnailCanvas" width="240" height="240" style="display:none; border:1px solid #000;"></canvas>
 
-        <!-- Seção de visualização da estampa -->
-        <div class="pattern-display">
-            <h3>Visualização da Estampa</h3>
-            <canvas id="patternCanvas" width="500" height="500"></canvas>
-        </div>
+    <!-- Botão para aplicar os efeitos -->
+    <button id="randomizeButton" style="display:none;" onclick="applyRandomEffects()">Randomize Effect</button>
 
-        <!-- Botões para trocar e salvar a estampa -->
-        <div class="button-section">
-            <button id="changePattern">Trocar Estampa</button>
-            <button id="savePattern">Salvar Estampa</button>
-        </div>
+    <!-- Botão para salvar as imagens -->
+    <button id="saveButton" style="display:none;" onclick="saveImages()">Save Images</button>
 
-        <!-- Galeria para visualização múltipla de estampas -->
-        <div id="patternGallery">
-            <h3>Galeria de Estampas</h3>
-            <div id="gallery"></div>
-        </div>
-    </div>
-
+    <!-- Importar o script -->
     <script src="js/script.js"></script>
 </body>
 </html>
