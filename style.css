@@ -3,34 +3,28 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
 }
 
-h1 {
-    margin-top: 20px;
-    color: #333;
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+}
+
+.logo {
+    height: 50px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+main {
+    padding: 20px;
 }
 
 form {
-    margin: 20px auto;
-    padding: 10px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    max-width: 400px;
+    margin-bottom: 20px;
 }
 
-input, select, button {
-    margin: 10px 0;
-    padding: 10px;
-    width: calc(100% - 22px);
-    font-size: 16px;
-}
-
-#output {
+#progressContainer {
     margin-top: 20px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
