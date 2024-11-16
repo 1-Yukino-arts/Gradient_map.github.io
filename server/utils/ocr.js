@@ -1,8 +1,8 @@
-const Tesseract = require("tesseract.js");
+const fs = require("fs");
 
-async function extractText(buffer) {
-    const { data } = await Tesseract.recognize(buffer, "eng");
-    return data.text.trim();
+async function processOCR(filePath) {
+    // Simula o OCR retornando texto de PDF com imagens
+    return "Texto extraído do PDF.";
 }
 
-module.exports = { extractText };
+module.exports = { processOCR };
