@@ -10,11 +10,35 @@ document.getElementById("uploadForm").addEventListener("submit", async (e) => {
     formData.append("engine", engine);
     formData.append("language", language);
 
+    const progressContainer = document.getElementById("progressContainer");
+    const uploadProgress = document.getElementById("uploadProgress");
+    const translationProgress = document.getElementById("translationProgress");
+    const downloadContainer = document.getElementById("downloadContainer");
+
+    progressContainer.style.display = "block";
+    uploadProgress.innerText = "Upload: 0%";
+    translationProgress.innerText = "Tradução: 0%";
+    downloadContainer.style.display = "none";
+
     const response = await fetch("/api/translate", {
         method: "POST",
         body: formData,
     });
 
-    const result = await response.json();
-    document.getElementById("output").innerText = result.translation || "Erro na tradução.";
+    if (response.ok) {
+        const { translatedFile } = await response.json();
+
+        translationProgress.innerText = "Tradução: 100%";
+        downloadContainer.style.display = "block";
+
+        document.getElementById("downloadButton").onclick = () => {
+            const link = document.createElement("a");
+            link.href = translatedFile;
+            link.download = "arquivo_traduzido.pdf";
+            link.click();
+        };
+    } else {
+        alert("Erro ao processar a tradução.");
+    }
 });
+                
