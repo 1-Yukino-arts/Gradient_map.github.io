@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Gradient Modifier with Thumbnail</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Tradutor de PDF</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Input para carregar a imagem do dispositivo -->
-    <input type="file" id="imageInput" accept="image/*" />
-    
-    <!-- Imagem do gradiente carregada pelo usuário -->
-    <img id="gradientImage" src="#" alt="Gradient" style="display:none;"/>
-
-    <!-- Miniatura da imagem -->
-    <canvas id="thumbnailCanvas" width="240" height="240" style="display:none; border:1px solid #000;"></canvas>
-
-    <!-- Botão para aplicar os efeitos -->
-    <button id="randomizeButton" style="display:none;" onclick="applyRandomEffects()">Randomize Effect</button>
-
-    <!-- Botão para salvar as imagens -->
-    <button id="saveButton" style="display:none;" onclick="saveImages()">Save Images</button>
-
-    <!-- Importar o script -->
-    <script src="js/script.js"></script>
+    <h1>Tradutor de PDF com GPT e Gemini</h1>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" accept=".pdf" required>
+        <select id="engineSelect" required>
+            <option value="gpt">GPT (OpenAI)</option>
+            <option value="gemini">Gemini</option>
+        </select>
+        <select id="languageSelect" required>
+            <option value="en">Inglês</option>
+            <option value="pt">Português</option>
+            <option value="es">Espanhol</option>
+        </select>
+        <button type="submit">Traduzir</button>
+    </form>
+    <div id="output"></div>
+    <script src="app.js"></script>
 </body>
 </html>
