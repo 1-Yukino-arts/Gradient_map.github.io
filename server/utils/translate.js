@@ -1,28 +1,17 @@
-const axios = require("axios");
+const fs = require("fs");
+const { processOCR } = require("./ocr");
 
-async function translateText(engine, language, text) {
-    if (engine === "gpt") {
-        // Tradução com GPT
-        const response = await axios.post("https://api.openai.com/v1/completions", {
-            model: "text-davinci-003",
-            prompt: `Traduza para ${language}: ${text}`,
-            max_tokens: 2048,
-        }, {
-            headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-        });
-        return response.data.choices[0].text.trim();
-    } else if (engine === "gemini") {
-        // Tradução com Gemini (exemplo)
-        const response = await axios.post("https://gemini.api/translate", {
-            text,
-            targetLanguage: language,
-        }, {
-            headers: { Authorization: `Bearer ${process.env.GEMINI_API_KEY}` },
-        });
-        return response.data.translation || "Erro ao traduzir com Gemini.";
-    } else {
-        throw new Error("Mecanismo de tradução inválido.");
-    }
+async function translatePDF(filePath, engine, language) {
+    const textContent = await processOCR(filePath); // Extração de texto do OCR
+    const translatedText = await callTranslationAPI(textContent, engine, language);
+
+    const outputFilePath = `translated_${Date.now()}.pdf`;
+    fs.writeFileSync(outputFilePath, translatedText); // Salvar como PDF
+    return outputFilePath;
 }
 
-module.exports = { translateText };
+async function callTranslationAPI(text, engine, language) {
+    return `Texto traduzido para ${language} usando ${engine}.`; // Simulação
+}
+
+module.exports = { translatePDF };
