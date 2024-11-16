@@ -3,25 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tradutor de PDF</title>
+    <title>Tradução de PDFs</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Tradutor de PDF com GPT e Gemini</h1>
-    <form id="uploadForm">
-        <input type="file" id="fileInput" accept=".pdf" required>
-        <select id="engineSelect" required>
-            <option value="gpt">GPT (OpenAI)</option>
-            <option value="gemini">Gemini</option>
-        </select>
-        <select id="languageSelect" required>
-            <option value="en">Inglês</option>
-            <option value="pt">Português</option>
-            <option value="es">Espanhol</option>
-        </select>
-        <button type="submit">Traduzir</button>
-    </form>
-    <div id="output"></div>
+    <header>
+        <img src="assets/logo.png" alt="Logo" class="logo">
+        <h1>Tradução de PDFs com IA</h1>
+    </header>
+    <main>
+        <form id="uploadForm">
+            <input type="file" id="fileInput" accept=".pdf" required>
+            <select id="engineSelect" required>
+                <option value="gpt">GPT (OpenAI)</option>
+                <option value="gemini">Gemini</option>
+            </select>
+            <select id="languageSelect" required>
+                <option value="en">Inglês</option>
+                <option value="pt">Português</option>
+                <option value="es">Espanhol</option>
+                <option value="fr">Francês</option>
+                <option value="de">Alemão</option>
+                <option value="zh">Chinês</option>
+                <option value="ja">Japonês</option>
+                <option value="hi">Hindi</option>
+                <option value="ar">Árabe</option>
+            </select>
+            <button type="submit">Traduzir</button>
+        </form>
+        <div id="progressContainer" style="display: none;">
+            <p id="uploadProgress">Upload: 0%</p>
+            <p id="translationProgress">Tradução: 0%</p>
+        </div>
+        <div id="output"></div>
+        <div id="downloadContainer" style="display: none;">
+            <button id="downloadButton">Baixar Tradução</button>
+        </div>
+    </main>
     <script src="app.js"></script>
 </body>
 </html>
