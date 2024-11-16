@@ -1,28 +1,27 @@
 const express = require("express");
 const multer = require("multer");
-const { extractText } = require("./utils/ocr");
-const { translateText } = require("./utils/translate");
+const { translatePDF } = require("./utils/translate");
+
 require("dotenv").config();
 
 const app = express();
-const upload = multer();
+const upload = multer({ dest: "uploads/" });
+
+app.use(express.static("../"));
 
 app.post("/api/translate", upload.single("file"), async (req, res) => {
+    const { engine, language } = req.body;
+    const filePath = req.file.path;
+
     try {
-        const { buffer } = req.file;
-        const { engine, language } = req.body;
-
-        // Extração de texto (OCR)
-        const extractedText = await extractText(buffer);
-
-        // Tradução
-        const translation = await translateText(engine, language, extractedText);
-        res.json({ translation });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Erro no servidor." });
+        const translatedFile = await translatePDF(filePath, engine, language);
+        res.json({ translatedFile });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erro ao traduzir o arquivo.");
     }
 });
 
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+app.listen(3000, () => {
+    console.log("Servidor rodando em http://localhost:3000");
+});
